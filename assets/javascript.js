@@ -14,7 +14,7 @@ $("document").ready(function() {
 
         // Deleting the buttons prior to adding new movies
         // (this is necessary otherwise you will have repeat buttons)
-        $("#search-buttons").empty();
+        $("#gif-buttons").empty();
 
         // Looping through the array of movies
         for (var i = 0; i < topics.length; i++) {
@@ -29,12 +29,10 @@ $("document").ready(function() {
             // Providing the initial button text
             btn.text(topics[i]);
             // Adding the button to the buttons-view div
-            $("#search-buttons").append(btn);
+            $("#gif-buttons").append(btn);
             console.log(topics[i]);
         };
     };
-    // calling button fucntion
-    displayButtons();
 
     // Function for dumping the JSON content for each button into the div
     function displayGif() {
@@ -47,9 +45,28 @@ $("document").ready(function() {
             method: "GET"
         }).then(function(response) {
             $("#gif-display").text(JSON.stringify(response));
-            renderButtons();
+            displayButtons();
         });
     };
+
+      // This function handles events where one button is clicked
+      $("#search-button").on("click", function(event) {
+        // event.preventDefault() prevents the form from trying to submit itself.
+        // We're using a form so that the user can hit enter instead of clicking the button if they want
+        event.preventDefault();
+
+        // This line will grab the text from the input box
+        var topic = $("#topic-input").val().trim();
+        // The movie from the textbox is then added to our array
+        topics.push(topic);
+
+
+        // calling renderButtons which handles the processing of our movie array
+        displayButtons();
+      });
+
+      // Calling the dispalyButtons function
+      displayButtons();
 
 
 });

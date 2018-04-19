@@ -9,9 +9,28 @@
     <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css" />
 </head>
 <body>
-    <!-- Giphy search buttons go here -->
-    <div id="search-buttons"></div>
-    <div id="gif-display"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <!-- Giphy search buttons go here -->
+                <div class="row" id="gif-buttons">
+
+                </div>
+                <div class="row" id="gif-display">
+
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." id="topic-input">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="search-button">Search</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-sm-3 -->
+        </div><!-- /.row -->
+    </div>
     
     
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>

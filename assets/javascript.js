@@ -4,10 +4,9 @@ $("document").ready(function() {
 
     var apikey = "8brcJYjX8RMikJ53PofeewOFIWzTeGCy";
 
-    var giphyLink = "http://api.giphy.com/v1/gifs/search?api_key&";
+    var giphyLink = "http://api.giphy.com/v1/gifs/search?api_key=";
 
     var limit = 10;
-    console.log(topics);
 
     // Function for displaying movie data
     function displayButtons() {
@@ -30,27 +29,32 @@ $("document").ready(function() {
             btn.text(topics[i]);
             // Adding the button to the buttons-view div
             $("#gif-buttons").append(btn);
-            console.log(topics[i]);
         };
     };
+    // console.dir(document.body.childNodes[1].children);
 
     // Function for dumping the JSON content for each button into the div
     function displayGif() {
 
         var topic = $(this).attr("data-name");
-        var queryURL = giphyLink + apikey + "&" + topic;
-
+        var queryURL = giphyLink + apikey + "&q=" + topic + "&limit=" + limit;
+        console.log(queryURL);
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function(response) {
-            $("#gif-display").text(JSON.stringify(response));
+            console.log(response);
+            var data = response.data;
+            for(g=0; g<data.length; g++){
+                $("#gif-display").append("<img src='" + data[g].images.fixed_width_still.url + "'>");
+            };
+
             displayButtons();
         });
     };
 
-      // This function handles events where one button is clicked
-      $("#search-button").on("click", function(event) {
+    // This function handles events where one button is clicked
+    $("#search-button").on("click", function(event) {
         // event.preventDefault() prevents the form from trying to submit itself.
         // We're using a form so that the user can hit enter instead of clicking the button if they want
         event.preventDefault();
@@ -63,10 +67,13 @@ $("document").ready(function() {
 
         // calling renderButtons which handles the processing of our movie array
         displayButtons();
-      });
+    });
 
-      // Calling the dispalyButtons function
-      displayButtons();
+    // Button on click to display Gif
+    $(document).on("click", ".topic", displayGif);
+
+    // Calling the dispalyButtons function
+    displayButtons();
 
 
 });

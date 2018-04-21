@@ -50,8 +50,23 @@ $("document").ready(function() {
             for(g=0; g<data.length; g++){
                 var dataStill =  data[g].images.fixed_height_still.url;
                 var dataAnimate = data[g].images.fixed_height.url;
+                 // Creating and storing a div tag
+                var gifDiv = $("<div>");
 
-                $("#gif-display").prepend("<img class='gifs' src='" + data[g].images.fixed_height_still.url + "' data-still='" + dataStill + "' data-animate ='" + dataAnimate + "' data-state = 'still'>");
+                var gif = $("<img class='gifs'>");
+                gif.attr("src", data[g].images.fixed_height_still.url);
+                gif.attr("data-still", dataStill);
+                gif.attr("data-animate", dataAnimate);
+                gif.attr("data-state", "still")
+                // Creating a paragraph tag with the result item's rating
+                var p = $("<p>").text("Title: " + data[g].title);
+                var p2 = $("<p>").text("Rating: " + data[g].rating);
+
+                gifDiv.append(p);
+                gifDiv.append(p2);
+                gifDiv.append(gif);
+                // prepending the gifs
+                $("#gif-display").prepend(gifDiv);
             
             };
 

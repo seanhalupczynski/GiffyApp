@@ -8,6 +8,8 @@ $("document").ready(function() {
 
     var limit = 10;
 
+    var counter = 0;
+
     // Function for displaying movie data
     function displayButtons() {
 
@@ -46,12 +48,33 @@ $("document").ready(function() {
             console.log(response);
             var data = response.data;
             for(g=0; g<data.length; g++){
-                $("#gif-display").append("<img src='" + data[g].images.fixed_width_still.url + "'>");
+                var dataStill =  data[g].images.fixed_height_still.url;
+                var dataAnimate = data[g].images.fixed_height.url;
+
+                $("#gif-display").append("<img class='gifs' src='" + data[g].images.fixed_height_still.url + "' data-still='" + dataStill + "' data-animate ='" + dataAnimate + "' data-state = 'still'>");
+            
             };
 
             displayButtons();
         });
+    
     };
+    
+    // Animate/Still gif
+    $(".gifs").on("click", function(){
+        var state = $(this).attr("data-state");
+
+        if(state === "still"){
+            $(this).attr("src", $(this).attr("data-animate"));       
+            $(this).attr("data-state", "animate"); 
+        }
+        else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        };
+                  
+    });
+
 
     // This function handles events where one button is clicked
     $("#search-button").on("click", function(event) {

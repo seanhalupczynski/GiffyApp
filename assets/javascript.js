@@ -51,7 +51,7 @@ $("document").ready(function() {
                 var dataStill =  data[g].images.fixed_height_still.url;
                 var dataAnimate = data[g].images.fixed_height.url;
 
-                $("#gif-display").append("<img class='gifs' src='" + data[g].images.fixed_height_still.url + "' data-still='" + dataStill + "' data-animate ='" + dataAnimate + "' data-state = 'still'>");
+                $("#gif-display").prepend("<img class='gifs' src='" + data[g].images.fixed_height_still.url + "' data-still='" + dataStill + "' data-animate ='" + dataAnimate + "' data-state = 'still'>");
             
             };
 
